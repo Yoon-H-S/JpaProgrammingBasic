@@ -12,16 +12,16 @@ public class Order extends BaseEntity {
     @GeneratedValue
     @Column(name = "ORDER_ID")
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID") // 연관관계
     private Member member;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID") // 1:1 연관관계
     private Delivery delivery;
     private LocalDateTime orderDate;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    @OneToMany(mappedBy = "order") // 양방향 연관관계
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) // 양방향 연관관계
     private List<OrderItem> orderItems = new ArrayList<>();
     
 
